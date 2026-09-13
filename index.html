@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B3B3E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Super Tienda Elohim — Catálogo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="brand">Super Tienda Elohim <small>Catálogo</small></a>
+  <nav>
+    <a href="empleado.html">Empleados</a>
+    <a href="admin.html">Administración</a>
+  </nav>
+  <button class="cart-btn" id="cartBtn">
+    🛒 Carrito
+    <span class="cart-badge" id="cartCount" style="display:none;">0</span>
+  </button>
+</header>
+
+<main>
+  <div class="page-head">
+    <h1>Nuestros productos</h1>
+    <p>Elige lo que necesites y arma tu pedido. Al finalizar, lo enviaremos por WhatsApp con el costo total.</p>
+  </div>
+  <div class="grid" id="grid">
+    <div class="skeleton" style="height:260px;"></div>
+    <div class="skeleton" style="height:260px;"></div>
+    <div class="skeleton" style="height:260px;"></div>
+  </div>
+  <p class="footer-note">Super Tienda Elohim · sitio construido con GitHub Pages + Firebase.</p>
+</main>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Carrito de compras">
+  <div class="drawer-head">
+    <h2 style="margin:0; font-size:1.1rem;">Tu carrito</h2>
+    <button id="closeDrawer" aria-label="Cerrar carrito">✕</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script type="module" src="js/cliente.js"></script>
+</body>
+</html>
