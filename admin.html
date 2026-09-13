@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B3B3E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Super Tienda Elohim — Panel de Administración</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="brand">Super Tienda Elohim <small>Administración</small></a>
+  <nav>
+    <a href="index.html">Catálogo</a>
+    <a href="empleado.html">Empleados</a>
+  </nav>
+</header>
+
+<main>
+  <div id="loginSection" class="login-wrap">
+    <div class="login-card">
+      <div class="eyebrow">Acceso restringido</div>
+      <h1 style="font-size:1.3rem;">Panel de administración</h1>
+      <p class="hint" style="margin-bottom:1.2rem;">Ingresa con tu cuenta de administrador.</p>
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">Correo</label>
+          <input type="email" id="email" required autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" required autocomplete="current-password">
+        </div>
+        <p class="error-text" id="loginError"></p>
+        <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="appSection" style="display:none;">
+    <div class="page-head" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem;">
+      <div>
+        <span class="session-badge"><span class="dot"></span> <span id="userLabel"></span></span>
+        <h1>Administrar productos</h1>
+        <p>Agrega, edita o elimina productos del catálogo público.</p>
+      </div>
+      <button class="btn btn-outline" id="logoutBtn">Cerrar sesión</button>
+    </div>
+
+    <div class="admin-grid">
+      <div class="panel">
+        <h2 id="formTitle">Agregar producto</h2>
+        <form id="productForm">
+          <div class="field">
+            <label for="pName">Nombre</label>
+            <input type="text" id="pName" required>
+          </div>
+          <div class="field">
+            <label for="pPrice">Precio (USD)</label>
+            <input type="number" id="pPrice" step="0.01" min="0" required>
+          </div>
+          <div class="field">
+            <label for="pStock">Existencias</label>
+            <input type="number" id="pStock" step="1" min="0" required>
+          </div>
+          <div class="field">
+            <label for="pCategory">Categoría</label>
+            <input type="text" id="pCategory" placeholder="Ej. Herramientas">
+          </div>
+          <div class="field">
+            <label for="pImage">URL de imagen</label>
+            <input type="url" id="pImage" placeholder="https://...">
+          </div>
+          <div class="field">
+            <label for="pDesc">Descripción</label>
+            <textarea id="pDesc"></textarea>
+          </div>
+          <div class="field" style="display:flex; align-items:center; gap:.6rem; min-height:44px;">
+            <input type="checkbox" id="pActive" checked style="width:22px; height:22px; min-height:auto; flex-shrink:0;">
+            <label style="margin:0; text-transform:none; font-size:.9rem; cursor:pointer;" for="pActive">Visible en el catálogo</label>
+          </div>
+          <div class="row-actions">
+            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+            <button type="button" id="cancelEdit" class="btn btn-outline" style="display:none;">Cancelar</button>
+          </div>
+        </form>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:1.5rem 0;">
+
+        <h2>Zonas de envío</h2>
+        <form id="zoneForm" class="tag-input-row" style="margin-bottom:.8rem;">
+          <input type="text" id="zName" placeholder="Nombre de zona" required>
+          <input type="number" id="zCost" placeholder="Costo" step="0.01" min="0" required style="max-width:100px;">
+          <button type="submit" class="btn btn-primary">+</button>
+        </form>
+        <ul class="mini-list" id="zoneList"></ul>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:1.5rem 0;">
+
+        <h2>WhatsApp de pedidos</h2>
+        <form id="waForm">
+          <div class="field">
+            <label for="waNumber">Número (formato internacional, sin +)</label>
+            <input type="text" id="waNumber" placeholder="50370001234" required>
+          </div>
+          <button type="submit" class="btn btn-amber btn-block">Guardar número</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>Catálogo actual</h2>
+        <ul class="mini-list" id="productList">
+          <li class="empty-note">Cargando…</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>
