@@ -2,7 +2,7 @@ import { db, WHATSAPP_FALLBACK } from "./firebase-config.js";
 import {
   collection, onSnapshot, query, where, addDoc, doc, getDoc, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-
+ 
 const grid = document.getElementById("grid");
 const cartBtn = document.getElementById("cartBtn");
 const cartCount = document.getElementById("cartCount");
@@ -14,36 +14,36 @@ const cartFoot = document.getElementById("cartFoot");
 const toast = document.getElementById("toast");
 const catList = document.getElementById("catList");
 const catHeading = document.getElementById("catHeading");
-
+ 
 let products = [];
 let activeCategory = "__todas__";
 let cart = JSON.parse(localStorage.getItem("cart_v1") || "[]");
 let zones = [];
 let whatsappNumber = WHATSAPP_FALLBACK;
 let currentZone = null;
-
+ 
 function showToast(msg, isErr){
   toast.textContent = msg;
   toast.classList.toggle("err", !!isErr);
   toast.classList.add("show");
   setTimeout(()=>toast.classList.remove("show"), 2600);
 }
-
+ 
 function saveCart(){
   localStorage.setItem("cart_v1", JSON.stringify(cart));
   renderCartCount();
 }
-
+ 
 function renderCartCount(){
   const n = cart.reduce((s,i)=>s+i.qty,0);
   cartCount.textContent = n;
   cartCount.style.display = n ? "inline-block" : "none";
 }
-
+ 
 function money(n){
   return "$" + Number(n).toFixed(2);
 }
-
+ 
 // ---------- Cargar productos en tiempo real ----------
 const q = query(collection(db, "products"), where("active", "==", true));
 onSnapshot(q, (snap) => {
@@ -59,12 +59,12 @@ onSnapshot(q, (snap) => {
 }, (err) => {
   grid.innerHTML = `<p class="empty-note">No se pudo cargar el catálogo. Revisa la consola (${err.code || err.message}).</p>`;
 });
-
+ 
 function categoryOf(p){
   const c = (p.category || "").trim();
   return c || "Sin categoría";
 }
-
+ 
 function renderCategories(){
   const counts = new Map();
   products.forEach(p => {
@@ -72,17 +72,17 @@ function renderCategories(){
     counts.set(c, (counts.get(c) || 0) + 1);
   });
   const names = [...counts.keys()].sort((a,b) => a.localeCompare(b, "es"));
-
+ 
   // si la categoría activa ya no existe, volver a "Todas"
   if (activeCategory !== "__todas__" && !counts.has(activeCategory)){
     activeCategory = "__todas__";
   }
-
+ 
   const items = [
     { key:"__todas__", label:"Todos los productos", count: products.length },
     ...names.map(n => ({ key:n, label:n, count: counts.get(n) }))
   ];
-
+ 
   catList.innerHTML = items.map(it => `
     <li>
       <button data-cat="${encodeURIComponent(it.key)}" class="${it.key === activeCategory ? "active" : ""}">
@@ -91,7 +91,7 @@ function renderCategories(){
       </button>
     </li>
   `).join("");
-
+ 
   catList.querySelectorAll("[data-cat]").forEach(b => {
     b.addEventListener("click", () => {
       activeCategory = decodeURIComponent(b.dataset.cat);
@@ -100,31 +100,31 @@ function renderCategories(){
     });
   });
 }
-
+ 
 function visibleProducts(){
   if (activeCategory === "__todas__") return products;
   return products.filter(p => categoryOf(p) === activeCategory);
 }
-
+ 
 function renderGrid(){
   if (!products.length){
     catHeading.innerHTML = "";
     grid.innerHTML = `<p class="empty-note">Todavía no hay productos publicados.</p>`;
     return;
   }
-
+ 
   const list = visibleProducts();
   const title = activeCategory === "__todas__" ? "Todos los productos" : activeCategory;
   catHeading.innerHTML = `
     <h2>${title}</h2>
     <span class="cat-count">${list.length} producto${list.length === 1 ? "" : "s"}</span>
   `;
-
+ 
   if (!list.length){
     grid.innerHTML = `<p class="empty-note">No hay productos en esta categoría.</p>`;
     return;
   }
-
+ 
   grid.innerHTML = list.map(p => {
     const outOfStock = Number(p.stock) <= 0;
     return `
@@ -146,12 +146,12 @@ function renderGrid(){
       </div>
     </article>`;
   }).join("");
-
+ 
   grid.querySelectorAll("[data-add]").forEach(btn => {
     btn.addEventListener("click", () => addToCart(btn.dataset.add));
   });
 }
-
+ 
 function addToCart(productId){
   const p = products.find(x => x.id === productId);
   if (!p) return;
@@ -168,7 +168,7 @@ function addToCart(productId){
   cartBtn.classList.remove("bump"); void cartBtn.offsetWidth; cartBtn.classList.add("bump");
   showToast(`${p.name} agregado al carrito`);
 }
-
+ 
 function changeQty(productId, delta){
   const item = cart.find(i => i.productId === productId);
   if (!item) return;
@@ -185,22 +185,22 @@ function changeQty(productId, delta){
   saveCart();
   renderCart();
 }
-
+ 
 function removeItem(productId){
   cart = cart.filter(i => i.productId !== productId);
   saveCart();
   renderCart();
 }
-
+ 
 function subtotal(){
   return cart.reduce((s,i) => s + i.price * i.qty, 0);
 }
-
+ 
 function currentShippingCost(){
   const z = zones.find(z => z.name === currentZone);
   return z ? Number(z.cost) : 0;
 }
-
+ 
 function renderCart(){
   if (!cart.length){
     cartBody.innerHTML = `<p class="empty-note">Tu carrito está vacío.<br>Agrega productos del catálogo.</p>`;
@@ -229,7 +229,7 @@ function renderCart(){
   cartBody.querySelectorAll("[data-inc]").forEach(b => b.addEventListener("click", () => changeQty(b.dataset.inc, 1)));
   cartBody.querySelectorAll("[data-dec]").forEach(b => b.addEventListener("click", () => changeQty(b.dataset.dec, -1)));
   cartBody.querySelectorAll("[data-rm]").forEach(b => b.addEventListener("click", () => removeItem(b.dataset.rm)));
-
+ 
   if (!currentZone && zones.length) currentZone = zones[0].name;
   const sub = subtotal();
   const ship = currentShippingCost();
@@ -266,7 +266,7 @@ function renderCart(){
   });
   document.getElementById("checkoutForm").addEventListener("submit", handleCheckout);
 }
-
+ 
 async function loadConfig(){
   try{
     const shipSnap = await getDoc(doc(db, "config", "shipping"));
@@ -276,7 +276,7 @@ async function loadConfig(){
     zones = [{ name: "Retiro en tienda", cost: 0 }];
   }
   currentZone = zones[0].name;
-
+ 
   try{
     const genSnap = await getDoc(doc(db, "config", "general"));
     if (genSnap.exists() && genSnap.data().whatsappNumber){
@@ -284,7 +284,7 @@ async function loadConfig(){
     }
   }catch(e){ /* usa el número de respaldo */ }
 }
-
+ 
 async function handleCheckout(e){
   e.preventDefault();
   const name = document.getElementById("custName").value.trim();
@@ -294,9 +294,9 @@ async function handleCheckout(e){
   const ship = currentShippingCost();
   const sub = subtotal();
   const total = sub + ship;
-
+ 
   if (!cart.length){ showToast("Tu carrito está vacío.", true); return; }
-
+ 
   const order = {
     customerName: name,
     customerPhone: phone,
@@ -309,14 +309,14 @@ async function handleCheckout(e){
     status: "nuevo",
     createdAt: serverTimestamp()
   };
-
+ 
   const submitBtn = e.target.querySelector("button[type=submit]");
   submitBtn.disabled = true;
   submitBtn.textContent = "Enviando...";
-
+ 
   try{
     await addDoc(collection(db, "orders"), order);
-
+ 
     const lines = cart.map(i => `• ${i.qty} x ${i.name} — ${money(i.price * i.qty)}`).join("%0A");
     const msg =
       `*Nuevo pedido*%0A%0A` +
@@ -327,9 +327,9 @@ async function handleCheckout(e){
       `Cliente: ${name}%0A` +
       `Teléfono: ${phone}%0A` +
       `Dirección: ${address}`;
-
+ 
     window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, "_blank");
-
+ 
     cart = [];
     saveCart();
     renderCart();
@@ -343,13 +343,13 @@ async function handleCheckout(e){
     submitBtn.textContent = "Enviar pedido por WhatsApp";
   }
 }
-
+ 
 function openCart(){ overlay.classList.add("open"); drawer.classList.add("open"); }
 function closeCart(){ overlay.classList.remove("open"); drawer.classList.remove("open"); }
-
+ 
 cartBtn.addEventListener("click", openCart);
 closeDrawer.addEventListener("click", closeCart);
 overlay.addEventListener("click", closeCart);
-
+ 
 renderCartCount();
 loadConfig().then(renderCart);
