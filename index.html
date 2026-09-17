@@ -29,10 +29,20 @@
     <h1>Nuestros productos</h1>
     <p>Elige lo que necesites y arma tu pedido. Al finalizar, lo enviaremos por WhatsApp con el costo total.</p>
   </div>
-  <div class="grid" id="grid">
-    <div class="skeleton" style="height:260px;"></div>
-    <div class="skeleton" style="height:260px;"></div>
-    <div class="skeleton" style="height:260px;"></div>
+  <div class="catalog-layout">
+    <aside class="cat-sidebar" id="catSidebar" aria-label="Categorías">
+      <h2 class="cat-title">Categorías</h2>
+      <ul class="cat-list" id="catList"></ul>
+    </aside>
+
+    <div class="catalog-main">
+      <div class="cat-heading" id="catHeading"></div>
+      <div class="grid" id="grid">
+        <div class="skeleton" style="height:260px;"></div>
+        <div class="skeleton" style="height:260px;"></div>
+        <div class="skeleton" style="height:260px;"></div>
+      </div>
+    </div>
   </div>
   <p class="footer-note">Super Tienda Elohim · sitio construido con GitHub Pages + Firebase.</p>
 </main>
