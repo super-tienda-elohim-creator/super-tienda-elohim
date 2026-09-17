@@ -312,6 +312,45 @@ tr:last-child td{border-bottom:none;}
 }
 @keyframes shimmer{0%{background-position:100% 0} 100%{background-position:0 0}}
 
+/* ---------- menú de categorías ---------- */
+.catalog-layout{
+  display:grid;
+  grid-template-columns:225px 1fr;
+  gap:1.5rem;
+  align-items:start;
+}
+.cat-sidebar{
+  position:sticky; top:88px;
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+  padding:1rem .9rem; box-shadow:var(--shadow);
+}
+.cat-title{
+  font-size:.72rem; text-transform:uppercase; letter-spacing:.08em;
+  color:var(--ink-soft); font-family:'Inter',sans-serif; font-weight:700;
+  margin:0 0 .6rem;
+}
+.cat-list{list-style:none; margin:0; padding:0;}
+.cat-list li{margin-bottom:.15rem;}
+.cat-list button{
+  width:100%; text-align:left; background:none; border:none;
+  padding:.55rem .6rem; border-radius:7px; cursor:pointer;
+  font-size:.88rem; color:var(--ink); min-height:40px;
+  display:flex; align-items:center; justify-content:space-between; gap:.5rem;
+  transition:background .12s ease, color .12s ease;
+}
+.cat-list button:hover{background:var(--paper-dim);}
+.cat-list button.active{background:var(--teal-700); color:#fff; font-weight:600;}
+.cat-list .count{
+  font-family:'IBM Plex Mono',monospace; font-size:.72rem;
+  color:var(--ink-soft); background:var(--paper-dim);
+  border-radius:999px; padding:.05rem .45rem; flex-shrink:0;
+}
+.cat-list button.active .count{background:rgba(255,255,255,.22); color:#fff;}
+
+.cat-heading{margin-bottom:.9rem;}
+.cat-heading h2{font-size:1.15rem; margin:0;}
+.cat-heading .cat-count{font-size:.82rem; color:var(--ink-soft);}
+
 /* ============================================================
    RESPONSIVE — tablets, celulares (Android/iOS)
    ============================================================ */
@@ -322,6 +361,26 @@ tr:last-child td{border-bottom:none;}
   .grid{grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:.85rem;}
   .admin-grid{gap:1.1rem;}
   .panel{padding:1rem;}
+
+  /* categorías pasan a fichas deslizables arriba del catálogo */
+  .catalog-layout{grid-template-columns:1fr; gap:1rem;}
+  .cat-sidebar{
+    position:static; padding:.75rem .85rem;
+  }
+  .cat-title{margin-bottom:.5rem;}
+  .cat-list{
+    display:flex; gap:.45rem;
+    overflow-x:auto; padding-bottom:.25rem;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+  }
+  .cat-list li{margin:0; flex:0 0 auto;}
+  .cat-list button{
+    width:auto; white-space:nowrap;
+    border:1px solid var(--line); border-radius:999px;
+    padding:.45rem .85rem; font-size:.84rem;
+  }
+  .cat-list button.active{border-color:var(--teal-700);}
 }
 
 /* Celulares */
