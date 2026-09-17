@@ -12,7 +12,11 @@ const closeDrawer = document.getElementById("closeDrawer");
 const cartBody = document.getElementById("cartBody");
 const cartFoot = document.getElementById("cartFoot");
 const toast = document.getElementById("toast");
+const catList = document.getElementById("catList");
+const catHeading = document.getElementById("catHeading");
+
 let products = [];
+let activeCategory = "__todas__";
 let cart = JSON.parse(localStorage.getItem("cart_v1") || "[]");
 let zones = [];
 let whatsappNumber = WHATSAPP_FALLBACK;
@@ -45,18 +49,83 @@ const q = query(collection(db, "products"), where("active", "==", true));
 onSnapshot(q, (snap) => {
   products = [];
   snap.forEach(d => products.push({ id: d.id, ...d.data() }));
+  products.sort((a,b) => {
+    const c = categoryOf(a).localeCompare(categoryOf(b), "es");
+    return c !== 0 ? c : (a.name || "").localeCompare(b.name || "", "es");
+  });
+  renderCategories();
   renderGrid();
   renderCart(); // por si cambió stock/precio
 }, (err) => {
   grid.innerHTML = `<p class="empty-note">No se pudo cargar el catálogo. Revisa la consola (${err.code || err.message}).</p>`;
 });
 
+function categoryOf(p){
+  const c = (p.category || "").trim();
+  return c || "Sin categoría";
+}
+
+function renderCategories(){
+  const counts = new Map();
+  products.forEach(p => {
+    const c = categoryOf(p);
+    counts.set(c, (counts.get(c) || 0) + 1);
+  });
+  const names = [...counts.keys()].sort((a,b) => a.localeCompare(b, "es"));
+
+  // si la categoría activa ya no existe, volver a "Todas"
+  if (activeCategory !== "__todas__" && !counts.has(activeCategory)){
+    activeCategory = "__todas__";
+  }
+
+  const items = [
+    { key:"__todas__", label:"Todos los productos", count: products.length },
+    ...names.map(n => ({ key:n, label:n, count: counts.get(n) }))
+  ];
+
+  catList.innerHTML = items.map(it => `
+    <li>
+      <button data-cat="${encodeURIComponent(it.key)}" class="${it.key === activeCategory ? "active" : ""}">
+        <span>${it.label}</span>
+        <span class="count">${it.count}</span>
+      </button>
+    </li>
+  `).join("");
+
+  catList.querySelectorAll("[data-cat]").forEach(b => {
+    b.addEventListener("click", () => {
+      activeCategory = decodeURIComponent(b.dataset.cat);
+      renderCategories();
+      renderGrid();
+    });
+  });
+}
+
+function visibleProducts(){
+  if (activeCategory === "__todas__") return products;
+  return products.filter(p => categoryOf(p) === activeCategory);
+}
+
 function renderGrid(){
   if (!products.length){
+    catHeading.innerHTML = "";
     grid.innerHTML = `<p class="empty-note">Todavía no hay productos publicados.</p>`;
     return;
   }
-  grid.innerHTML = products.map(p => {
+
+  const list = visibleProducts();
+  const title = activeCategory === "__todas__" ? "Todos los productos" : activeCategory;
+  catHeading.innerHTML = `
+    <h2>${title}</h2>
+    <span class="cat-count">${list.length} producto${list.length === 1 ? "" : "s"}</span>
+  `;
+
+  if (!list.length){
+    grid.innerHTML = `<p class="empty-note">No hay productos en esta categoría.</p>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(p => {
     const outOfStock = Number(p.stock) <= 0;
     return `
     <article class="card">
