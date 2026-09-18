@@ -1,5 +1,6 @@
+· CSS
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
-
+ 
 :root{
   --blue-900:#0C336A;
   --blue-700:#1B4D82;
@@ -17,7 +18,7 @@
   --shadow:0 2px 10px rgba(12,51,106,.08);
   --shadow-lift:0 10px 30px rgba(12,51,106,.16);
 }
-
+ 
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
 body{
@@ -41,17 +42,17 @@ h1,h2,h3{
 a{color:inherit;}
 button{font-family:inherit;}
 .mono{font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums;}
-
+ 
 /* focus visibility */
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
   outline:2px solid var(--amber-600);
   outline-offset:2px;
 }
-
+ 
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
 }
-
+ 
 /* ---------- top bar ---------- */
 .topbar{
   position:sticky; top:0; z-index:30;
@@ -82,7 +83,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   padding:.3rem 0; min-height:32px; display:flex; align-items:center;
 }
 .topbar nav a:hover{opacity:1;}
-
+ 
 .cart-btn{
   position:relative;
   background:var(--amber-500);
@@ -104,12 +105,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   border-radius:999px; font-size:.7rem; padding:.05rem .45rem;
   font-family:'IBM Plex Mono',monospace;
 }
-
+ 
 /* ---------- layout ---------- */
 main{max-width:1080px; margin:0 auto; padding:1.75rem 1.25rem 4rem;}
 .page-head{margin-bottom:1.5rem;}
 .page-head p{color:var(--ink-soft); margin-top:0;}
-
+ 
 /* ---------- product grid / price-tag card ---------- */
 .grid{
   display:grid;
@@ -158,7 +159,7 @@ main{max-width:1080px; margin:0 auto; padding:1.75rem 1.25rem 4rem;}
   width:5px; height:5px; border-radius:50%; background:var(--paper);
 }
 .row-actions{display:flex; gap:.5rem; margin-top:.4rem;}
-
+ 
 .btn{
   border:none; border-radius:8px; padding:.6rem 1rem;
   font-weight:600; font-size:.85rem; cursor:pointer;
@@ -179,13 +180,13 @@ main{max-width:1080px; margin:0 auto; padding:1.75rem 1.25rem 4rem;}
   min-width:36px; min-height:36px; padding:.4rem .6rem;
   display:inline-flex; align-items:center; justify-content:center;
 }
-
+ 
 .stock-out{
   position:absolute; inset:0; background:rgba(28,43,45,.55);
   display:flex; align-items:center; justify-content:center;
   color:#fff; font-weight:600; font-size:.85rem; letter-spacing:.04em;
 }
-
+ 
 /* ---------- cart drawer ---------- */
 .overlay{
   position:fixed; inset:0; background:rgba(12,51,106,.35);
@@ -207,7 +208,7 @@ main{max-width:1080px; margin:0 auto; padding:1.75rem 1.25rem 4rem;}
 .drawer-head button{background:none; border:none; font-size:1.3rem; cursor:pointer; color:var(--ink-soft);}
 .drawer-body{flex:1; overflow-y:auto; padding:1rem 1.25rem;}
 .drawer-foot{padding:1.1rem 1.25rem; border-top:1px solid var(--line); background:#fff;}
-
+ 
 .cart-item{
   display:grid; grid-template-columns:52px 1fr auto; gap:.7rem;
   padding:.7rem 0; border-bottom:1px dashed var(--line); align-items:center;
@@ -226,14 +227,14 @@ main{max-width:1080px; margin:0 auto; padding:1.75rem 1.25rem 4rem;}
   cursor:pointer; padding:0; margin-top:.3rem; text-decoration:underline;
 }
 .empty-note{color:var(--ink-soft); font-size:.9rem; text-align:center; padding:2rem 0;}
-
+ 
 .summary-row{display:flex; justify-content:space-between; font-size:.9rem; margin:.25rem 0;}
 .summary-row.total{
   font-size:1.05rem; font-weight:700; color:var(--blue-900);
   border-top:1px solid var(--line); padding-top:.6rem; margin-top:.5rem;
 }
 .summary-row .val{font-family:'IBM Plex Mono',monospace;}
-
+ 
 /* ---------- forms ---------- */
 .field{margin-bottom:.9rem;}
 .field label{display:block; font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-bottom:.3rem; text-transform:uppercase; letter-spacing:.04em;}
@@ -247,7 +248,7 @@ main{max-width:1080px; margin:0 auto; padding:1.75rem 1.25rem 4rem;}
 .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--blue-500);}
 .hint{font-size:.75rem; color:var(--ink-soft); margin-top:.25rem;}
 .error-text{color:var(--danger); font-size:.82rem; margin-top:.4rem; min-height:1.1em;}
-
+ 
 /* ---------- login panel ---------- */
 .login-wrap{max-width:380px; margin:3rem auto; padding:0 1.25rem;}
 .login-card{
@@ -264,7 +265,7 @@ main{max-width:1080px; margin:0 auto; padding:1.75rem 1.25rem 4rem;}
   font-size:.78rem; font-weight:600; color:var(--blue-900); margin-bottom:1rem;
 }
 .session-badge .dot{width:7px; height:7px; border-radius:50%; background:var(--ok);}
-
+ 
 /* ---------- tables ---------- */
 .table-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:#fff;}
 table{width:100%; border-collapse:collapse; font-size:.86rem;}
@@ -280,7 +281,7 @@ tr:last-child td{border-bottom:none;}
   font-size:.72rem; font-weight:600; background:var(--paper-dim); color:var(--blue-700);
 }
 .order-items{font-size:.78rem; color:var(--ink-soft); margin:0; padding-left:1.1rem;}
-
+ 
 /* ---------- admin product mgmt ---------- */
 .admin-grid{display:grid; grid-template-columns:320px 1fr; gap:1.5rem;}
 @media (max-width:820px){.admin-grid{grid-template-columns:1fr;}}
@@ -294,7 +295,7 @@ tr:last-child td{border-bottom:none;}
 .mini-list li:last-child{border-bottom:none;}
 .tag-input-row{display:flex; gap:.5rem;}
 .tag-input-row input{flex:1;}
-
+ 
 .toast{
   position:fixed; bottom:1.25rem; left:50%; transform:translateX(-50%) translateY(20px);
   background:var(--blue-900); color:#fff; padding:.7rem 1.1rem; border-radius:8px;
@@ -303,15 +304,15 @@ tr:last-child td{border-bottom:none;}
 }
 .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
 .toast.err{background:var(--danger);}
-
+ 
 .footer-note{text-align:center; color:var(--ink-soft); font-size:.75rem; margin-top:3rem;}
-
+ 
 .skeleton{
   background:linear-gradient(90deg, var(--paper-dim) 25%, #fff 37%, var(--paper-dim) 63%);
   background-size:400% 100%; animation:shimmer 1.4s ease infinite; border-radius:6px;
 }
 @keyframes shimmer{0%{background-position:100% 0} 100%{background-position:0 0}}
-
+ 
 /* ---------- menú de categorías ---------- */
 .catalog-layout{
   display:grid;
@@ -346,22 +347,22 @@ tr:last-child td{border-bottom:none;}
   border-radius:999px; padding:.05rem .45rem; flex-shrink:0;
 }
 .cat-list button.active .count{background:rgba(255,255,255,.22); color:#fff;}
-
+ 
 .cat-heading{margin-bottom:.9rem;}
 .cat-heading h2{font-size:1.15rem; margin:0;}
 .cat-heading .cat-count{font-size:.82rem; color:var(--ink-soft);}
-
+ 
 /* ============================================================
    RESPONSIVE — tablets, celulares (Android/iOS)
    ============================================================ */
-
+ 
 /* Tablets y pantallas medianas */
 @media (max-width:900px){
   main{padding:1.4rem 1rem 3rem;}
   .grid{grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:.85rem;}
   .admin-grid{gap:1.1rem;}
   .panel{padding:1rem;}
-
+ 
   /* categorías pasan a fichas deslizables arriba del catálogo */
   .catalog-layout{grid-template-columns:1fr; gap:1rem;}
   .cat-sidebar{
@@ -382,7 +383,7 @@ tr:last-child td{border-bottom:none;}
   }
   .cat-list button.active{border-color:var(--blue-700);}
 }
-
+ 
 /* Celulares */
 @media (max-width:600px){
   .topbar{padding:.75rem 1rem; padding-top:calc(.75rem + env(safe-area-inset-top));}
@@ -392,35 +393,35 @@ tr:last-child td{border-bottom:none;}
     font-size:.8rem; margin-top:.1rem;
   }
   .cart-btn{padding:.5rem .9rem; font-size:.8rem;}
-
+ 
   main{padding:1.1rem .85rem 3rem;}
   h1{font-size:1.4rem;}
   .page-head p{font-size:.88rem;}
-
+ 
   .grid{grid-template-columns:repeat(2, 1fr); gap:.65rem;}
   .card h3{font-size:.92rem;}
   .card .desc{font-size:.78rem;}
   .card .body{padding:.65rem .65rem .8rem;}
   .price-tag{font-size:.75rem; padding:.28rem .55rem .28rem .7rem; top:.5rem;}
-
+ 
   .drawer{width:100vw;}
   .drawer-head, .drawer-body, .drawer-foot{padding-left:1rem; padding-right:1rem;}
   .drawer-foot{
     padding-bottom:calc(1.1rem + env(safe-area-inset-bottom));
   }
-
+ 
   .login-wrap{margin:1.5rem auto;}
   .login-card{padding:1.4rem 1.1rem;}
-
+ 
   .admin-grid{grid-template-columns:1fr;}
   .mini-list li{flex-wrap:wrap; gap:.5rem;}
   .tag-input-row{flex-wrap:wrap;}
   .tag-input-row input{min-width:0;}
   .tag-input-row button{width:100%;}
-
+ 
   .row-actions{flex-wrap:wrap;}
   .row-actions .btn{flex:1 1 auto;}
-
+ 
   /* Tablas de pedidos -> tarjetas apiladas */
   .table-wrap table, .table-wrap thead, .table-wrap tbody,
   .table-wrap th, .table-wrap td, .table-wrap tr{ display:block; }
@@ -438,14 +439,15 @@ tr:last-child td{border-bottom:none;}
     color:var(--ink-soft); font-weight:600; flex:0 0 92px;
   }
 }
-
+ 
 /* Celulares pequeños */
 @media (max-width:380px){
   .grid{grid-template-columns:1fr 1fr; gap:.5rem;}
   .brand small{display:none;}
 }
-
+ 
 /* Soporte para notch/isla dinámica en iOS cuando el navegador respeta dvh */
 @supports (height: 100dvh){
   .drawer{height:100dvh;}
 }
+ 
