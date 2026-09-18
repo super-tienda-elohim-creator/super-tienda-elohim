@@ -318,11 +318,15 @@ tr:last-child td{border-bottom:none;}
   grid-template-columns:225px 1fr;
   gap:1.5rem;
   align-items:start;
+  min-width:0;
 }
+.catalog-layout > *{ min-width:0; }
+.catalog-main{ min-width:0; }
 .cat-sidebar{
   position:sticky; top:88px;
   background:#fff; border:1px solid var(--line); border-radius:var(--radius);
   padding:1rem .9rem; box-shadow:var(--shadow);
+  min-width:0;
 }
 .cat-title{
   font-size:.72rem; text-transform:uppercase; letter-spacing:.08em;
